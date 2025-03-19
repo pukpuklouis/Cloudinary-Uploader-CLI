@@ -1,24 +1,28 @@
 # Cloudinary Uploader CLI
+Cloudinary 上傳用的工具指令
 
-A lightweight, Rust-based command-line tool designed to simplify uploading media files (images, videos, etc.) to Cloudinary, a cloud-based media management platform. It provides an intuitive interface for selecting files or folders using `fzf` (a fuzzy finder), uploading them to user-defined remote folders on Cloudinary, retrieving public URLs, and applying basic transformations.
+一個輕量級的、基於 Rust 的命令行工具，旨在簡化將媒體文件（圖像、視頻等）上傳到 Cloudinary（一個基於雲的媒體管理平台）的過程。它提供了一個直觀的界面，使用 `fzf`（模糊查找器）選擇文件或文件夾，將它們上傳到 Cloudinary 上的用戶定義的遠程文件夾，檢索公共 URL，並應用基本轉換。
 
-## Features
+ [English README](README_en.md)
 
-- Upload single files, multiple files, or entire folders to Cloudinary
-- Interactive file selection using `fzf`
-- Specify remote folders for uploads
-- Apply basic transformations (WebP, AVIF)
-- Get public URLs for uploaded media
-- Save URLs to a file for easy reference
 
-## Installation
+## 功能特點
 
-### Prerequisites
+- 將單個文件、多個文件或整個文件夾上傳到 Cloudinary
+- 使用 `fzf` 進行互動式文件選擇
+- 指定上傳的遠程文件夾
+- 應用基本轉換（WebP、AVIF）
+- 獲取已上傳媒體的公共 URL
+- 將 URL 保存到文件中以便於參考
 
-- Rust 1.65 or later
-- `fzf` for interactive file selection
+## 安裝
 
-### Building from Source
+### 前置要求
+
+- Rust 1.65 或更高版本
+- 用於互動式文件選擇的 `fzf`
+
+### 要用源程式碼開發
 
 ```bash
 git clone https://github.com/yourusername/cld-upload-helper.git
@@ -26,62 +30,62 @@ cd cld-upload-helper
 cargo build --release
 ```
 
-The binary will be available at `./target/release/cld-upload-helper`.
+build後，執行文件將位於 `./target/release/cld-upload-helper`。
 
-## Usage
+## 使用方法
 
-### Initialize Configuration
+### 初始化配置
 
-Before using the tool, you need to set up your Cloudinary credentials:
+在使用工具之前，您需要設置 Cloudinary 憑證：
 
 ```bash
 cld-upload-helper init
 ```
 
-This will prompt you to enter your Cloudinary cloud name, API key, and API secret. Alternatively, you can set the `CLOUDINARY_URL` environment variable in the format `cloudinary://<api_key>:<api_secret>@<cloud_name>`.
+這將提示您輸入 Cloudinary 雲名稱、API 密鑰和 API 密碼。或者，您可以設置 `CLOUDINARY_URL` 環境變量，格式為 `cloudinary://<api_key>:<api_secret>@<cloud_name>`。
 
-### Upload Files
+### 上傳文件
 
-Upload files interactively using `fzf`:
+使用 `fzf` 互動式上傳文件：
 
 ```bash
 cld-upload-helper upload
 ```
 
-Upload a specific file or directory:
+上傳特定文件或目錄：
 
 ```bash
 cld-upload-helper upload path/to/file.jpg
 cld-upload-helper upload path/to/directory
 ```
 
-Upload with options:
+使用選項上傳：
 
 ```bash
-# Upload to a specific folder in Cloudinary
+# 上傳到 Cloudinary 中的特定文件夾
 cld-upload-helper upload --folder my-project/assets
 
-# Convert images to WebP during upload
+# 在上傳過程中將圖像轉換為 WebP
 cld-upload-helper upload --transform webp
 
-# Save URLs to a file
+# 將 URL 保存到文件
 cld-upload-helper upload --output urls.txt
 
-# Combine options
+# 組合選項
 cld-upload-helper upload path/to/directory --folder my-project/assets --transform webp --output urls.txt
 ```
 
-### View Configuration
+### 查看配置
 
-View your current configuration:
+查看您當前的配置：
 
 ```bash
 cld-upload-helper config
 ```
 
-## Configuration
+## 配置
 
-The configuration is stored in `~/.cloudyrc` in TOML format:
+配置以 TOML 格式存儲在 `~/.cloudyrc` 中：
 
 ```toml
 [cloudinary]
@@ -91,10 +95,10 @@ api_secret = "your-api-secret"
 default_folder = "optional-default-folder"
 ```
 
-## Development
+## 開發
 
-Check the [DEVELOPER_NOTES.md](DEVELOPER_NOTES.md) file for information about the current state of development, what's been implemented, and what's planned for future releases.
+查看 [DEVELOPER_NOTES.md](DEVELOPER_NOTES.md) 文件，了解有關當前開發狀態、已實現的功能以及計劃在未來版本中實現的功能的信息。
 
-## License
+## 許可證
 
 MIT
