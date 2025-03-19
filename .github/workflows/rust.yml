@@ -23,7 +23,7 @@ jobs:
       uses: dtolnay/rust-toolchain@stable
       
     - name: Cache dependencies
-      uses: Swatinem/rust-cache@v2
+      uses: Swatinem/rust-cache@v3
     
     - name: Build
       run: cargo build --release
@@ -32,7 +32,7 @@ jobs:
       run: cargo test --verbose
       
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{ env.BINARY_NAME }}-linux
         path: target/release/${{ env.BINARY_NAME }}
@@ -48,7 +48,7 @@ jobs:
         fetch-depth: 0
         
     - name: Download artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: ${{ env.BINARY_NAME }}-linux
         path: ./artifacts
