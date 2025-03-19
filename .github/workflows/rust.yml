@@ -52,7 +52,7 @@ jobs:
     - name: Download a Build Artifact
       uses: actions/download-artifact@v4.2.0
       with:
-        name: ${{ env.BINARY_NAME }}-linux
+        name: ${{ env.BINARY_NAME }}-macos
         path: ./artifacts
         
     - name: Make binary executable
