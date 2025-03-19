@@ -24,6 +24,8 @@ jobs:
       
     - name: Cache dependencies
       uses: Swatinem/rust-cache@v3
+      with:
+        cache-on-failure: true
     
     - name: Build
       run: cargo build --release
