@@ -36,7 +36,7 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.6.1
       with:
-        name: ${{ env.BINARY_NAME }}-linux
+        name: ${{ env.BINARY_NAME }}-macos
         path: target/release/${{ env.BINARY_NAME }}
         
   release:
@@ -109,4 +109,4 @@ jobs:
         files: ./artifacts/${{ env.BINARY_NAME }}
         generate_release_notes: false
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
