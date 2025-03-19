@@ -100,4 +100,4 @@ default_folder = "optional-default-folder"
 
 ## 許可證
 
-MIT
+MIT 授權
