@@ -8,6 +8,11 @@ on:
   pull_request:
     branches: [ "master" ]
 
+# Add permissions for the GITHUB_TOKEN
+permissions:
+  contents: write
+  packages: write
+
 env:
   CARGO_TERM_COLOR: always
   BINARY_NAME: cld-upload-helper
