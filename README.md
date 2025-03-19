@@ -1,19 +1,18 @@
 # Cloudinary Uploader CLI
 Cloudinary 上傳用的工具指令
 
-一個輕量級的、基於 Rust 的命令行工具，旨在簡化將媒體文件（圖像、視頻等）上傳到 Cloudinary（一個基於雲的媒體管理平台）的過程。它提供了一個直觀的界面，使用 `fzf`（模糊查找器）選擇文件或文件夾，將它們上傳到 Cloudinary 上的用戶定義的遠程文件夾，檢索公共 URL，並應用基本轉換。
+一個用 Rust 寫的輕量級命令行小工具，專為那些懶得手動搞亂七八糟上傳流程的人設計，目標是把圖片、影片之類的媒體檔案丟到 Cloudinary（那個超方便的雲端媒體管理平台）變得超簡單。它有個超直覺的介面，靠著 fzf（模糊搜尋神器）讓你輕鬆挑選檔案或資料夾，然後一鍵上傳到你在 Cloudinary 自訂的遠端資料夾，還能馬上拿到公開 URL，甚至順手搞點基本轉換。簡單說，就是把麻煩的事變得輕鬆。
 
  [English README](README_en.md)
 
 
-## 功能特點
-
-- 將單個文件、多個文件或整個文件夾上傳到 Cloudinary
-- 使用 `fzf` 進行互動式文件選擇
-- 指定上傳的遠程文件夾
-- 應用基本轉換（WebP、AVIF）
-- 獲取已上傳媒體的公共 URL
-- 將 URL 保存到文件中以便於參考
+## 功能特色
+- 支援單一檔案、多個檔案或整個資料夾上傳至 Cloudinary。
+- 整合 `fzf` 提供互動式檔案選擇，操作更便捷。
+- 可指定上傳至 Cloudinary 的遠端資料夾。
+- 提供基本轉換功能（如 WebP、AVIF），滿足簡單編輯需求。
+- 上傳完成後即可取得公開 URL，方便分享與使用。
+- 可將 URL 儲存至檔案，方便後續參考與管理。
 
 ## 安裝
 
@@ -39,40 +38,40 @@ build後，執行文件將位於 `./target/release/cld-upload-helper`。
 在使用工具之前，您需要設置 Cloudinary 憑證：
 
 ```bash
-cld-upload-helper init
+./cld-upload-helper init
 ```
 
-這將提示您輸入 Cloudinary 雲名稱、API 密鑰和 API 密碼。或者，您可以設置 `CLOUDINARY_URL` 環境變量，格式為 `cloudinary://<api_key>:<api_secret>@<cloud_name>`。
+這將提示您輸入 Cloudinary cloud name、API 密鑰和 API 密碼。或者，您可以設置 `CLOUDINARY_URL` 環境變量，格式為 `cloudinary://<api_key>:<api_secret>@<cloud_name>`。
 
 ### 上傳文件
 
 使用 `fzf` 互動式上傳文件：
 
 ```bash
-cld-upload-helper upload
+./cld-upload-helper upload
 ```
 
 上傳特定文件或目錄：
 
 ```bash
-cld-upload-helper upload path/to/file.jpg
-cld-upload-helper upload path/to/directory
+./cld-upload-helper upload path/to/file.jpg
+./cld-upload-helper upload path/to/directory
 ```
 
 使用選項上傳：
 
 ```bash
 # 上傳到 Cloudinary 中的特定文件夾
-cld-upload-helper upload --folder my-project/assets
+./cld-upload-helper upload --folder my-project/assets
 
 # 在上傳過程中將圖像轉換為 WebP
-cld-upload-helper upload --transform webp
+./cld-upload-helper upload --transform webp
 
 # 將 URL 保存到文件
-cld-upload-helper upload --output urls.txt
+./cld-upload-helper upload --output urls.txt
 
 # 組合選項
-cld-upload-helper upload path/to/directory --folder my-project/assets --transform webp --output urls.txt
+./cld-upload-helper upload path/to/directory --folder my-project/assets --transform webp --output urls.txt
 ```
 
 ### 查看配置
@@ -80,7 +79,7 @@ cld-upload-helper upload path/to/directory --folder my-project/assets --transfor
 查看您當前的配置：
 
 ```bash
-cld-upload-helper config
+./cld-upload-helper config
 ```
 
 ## 配置
