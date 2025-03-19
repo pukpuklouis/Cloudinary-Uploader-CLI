@@ -108,5 +108,4 @@ jobs:
         prerelease: ${{ github.ref == 'refs/heads/master' }}
         files: ./artifacts/${{ env.BINARY_NAME }}
         generate_release_notes: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        token: ${{ github.token }}
