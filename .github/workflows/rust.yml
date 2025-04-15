@@ -1,4 +1,4 @@
-name: Rust CI/CD
+name: Rust CI/CD (macOS)
 
 on:
   push:
@@ -19,50 +19,50 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Install Rust
       uses: dtolnay/rust-toolchain@stable
-      
+
     - name: Rust Cache
       uses: Swatinem/rust-cache@v2.7.8
       with:
         cache-on-failure: true
-    
+
     - name: Build
       run: cargo build --release
-    
+
     - name: Run tests
       run: cargo test --verbose
-      
+
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.6.1
       with:
         name: ${{ env.BINARY_NAME }}-macos
         path: target/release/${{ env.BINARY_NAME }}
-        
+
   release:
     needs: build
     if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/master'
-    runs-on: ubuntu-latest
-    
+    runs-on: macos-latest
+
     steps:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
-        
+
     - name: Download a Build Artifact
       uses: actions/download-artifact@v4.2.0
       with:
         name: ${{ env.BINARY_NAME }}-macos
         path: ./artifacts
-        
+
     - name: Make binary executable
       run: chmod +x ./artifacts/${{ env.BINARY_NAME }}
-        
+
     - name: Generate release notes
       id: release_notes
       run: |
@@ -71,7 +71,7 @@ jobs:
           LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "initial-release")
           CURRENT_COMMIT=$(git rev-parse --short HEAD)
           VERSION="dev-${CURRENT_COMMIT}"
-          
+
           # Generate changelog since last tag or all commits if no tags
           if [[ "$LATEST_TAG" == "initial-release" ]]; then
             CHANGES=$(git log --pretty=format:"- %s" | head -10)
@@ -81,14 +81,14 @@ jobs:
         else
           VERSION=${GITHUB_REF#refs/tags/}
           PREVIOUS_TAG=$(git describe --tags --abbrev=0 ${VERSION}^ 2>/dev/null || echo "")
-          
+
           if [[ -z "$PREVIOUS_TAG" ]]; then
             CHANGES=$(git log --pretty=format:"- %s" | head -10)
           else
             CHANGES=$(git log ${PREVIOUS_TAG}..${VERSION} --pretty=format:"- %s")
           fi
         fi
-        
+
         echo "version=${VERSION}" >> $GITHUB_OUTPUT
         echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
         echo "# Cloudinary Uploader CLI ${VERSION}" >> $GITHUB_ENV
@@ -102,7 +102,7 @@ jobs:
         echo "- Basic transformations (WebP, AVIF)" >> $GITHUB_ENV
         echo "- Configuration management with TOML" >> $GITHUB_ENV
         echo "EOF" >> $GITHUB_ENV
-        
+
     - name: GH Release
       uses: softprops/action-gh-release@v2.2.1
       with:

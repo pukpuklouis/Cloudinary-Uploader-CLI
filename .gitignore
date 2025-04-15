@@ -7,9 +7,10 @@ Cargo.lock
 # Editor
 .idea
 
-# windsurf config
-.windsurfrules
 
 # env
 .env
 
+*
+# windsurf config
+!/.windsurfrules/
