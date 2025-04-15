@@ -1,4 +1,4 @@
-name: Rust CI/CD (macOS)
+name: Rust CI/CD (macOS Intel)
 
 on:
   push:
@@ -26,23 +26,25 @@ jobs:
 
     - name: Install Rust
       uses: dtolnay/rust-toolchain@stable
+      with:
+        targets: x86_64-apple-darwin
 
     - name: Rust Cache
       uses: Swatinem/rust-cache@v2.7.8
       with:
         cache-on-failure: true
 
-    - name: Build
-      run: cargo build --release
+    - name: Build for Intel
+      run: cargo build --release --target x86_64-apple-darwin
 
     - name: Run tests
-      run: cargo test --verbose
+      run: cargo test --verbose --target x86_64-apple-darwin
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.6.1
       with:
-        name: ${{ env.BINARY_NAME }}-macos
-        path: target/release/${{ env.BINARY_NAME }}
+        name: ${{ env.BINARY_NAME }}-macos-intel
+        path: target/x86_64-apple-darwin/release/${{ env.BINARY_NAME }}
 
   release:
     needs: build
@@ -57,7 +59,7 @@ jobs:
     - name: Download a Build Artifact
       uses: actions/download-artifact@v4.2.0
       with:
-        name: ${{ env.BINARY_NAME }}-macos
+        name: ${{ env.BINARY_NAME }}-macos-intel
         path: ./artifacts
 
     - name: Make binary executable
@@ -113,4 +115,4 @@ jobs:
         prerelease: ${{ github.ref == 'refs/heads/master' }}
         files: ./artifacts/${{ env.BINARY_NAME }}
         generate_release_notes: false
-        GH_TOKEN: ${{secrets.GITHUB_TOKEN }}
+        token: ${{secrets.GITHUB_TOKEN }}
